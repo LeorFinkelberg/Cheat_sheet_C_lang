@@ -1,0 +1,44 @@
+\documentclass[%
+	11pt,
+	a4paper,
+	utf8,
+	%twocolumn
+		]{article}	
+
+\usepackage{style_packages/podvoyskiy_article_extended}
+
+
+\begin{document}
+\title{Приемы программирования на языках C и C++}
+
+\author{}
+
+\date{}
+\maketitle
+
+\thispagestyle{fancy}
+
+\tableofcontents
+
+\section{Ресуры по языкам C}
+
+\url{https://learnc.info/c/}
+
+\section{Visual Studio Code как среда разработки для языка Си}
+
+Скачать Visual Studio Code можно здесь \url{https://code.visualstudio.com/}. Для ОС Windows нужно еще установить GCC. На ОС Linux компилятор gcc доступен <<из коробки>>. На ОС MacOS компилятор gcc можно установить с помщью утилиты \verb|brew|.
+
+После установки IDE останется только создать директорию с проектом под язык Си. Когда Visual Studio Code увидит файл с расширением \verb|*.c|, она предложит установить специальное расширение <<C/C++ Extension Pack v1.X.X>>.
+
+
+
+% Источники в "Газовой промышленности" нумеруются по мере упоминания 
+\begin{thebibliography}{99}\addcontentsline{toc}{section}{Список литературы}
+	\bibitem{koltzov-c-lang:2019}{ \emph{Кольцов Д.М.} Си на примерах. Практика, практика и только практика. -- СПб.: Наука и Техника, 2019. -- 288 с.}
+\end{thebibliography}
+
+%\listoffigures\addcontentsline{toc}{section}{Список иллюстраций}
+
+\lstlistoflistings\addcontentsline{toc}{section}{Список листингов}
+
+\end{document}
