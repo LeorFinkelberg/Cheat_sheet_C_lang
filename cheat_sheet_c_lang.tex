@@ -442,6 +442,67 @@ int main(int argc, char *argv[], char **penv);
 
 Вместо безликого значения 0 можно воспользоваться макроопределением \verb|EXIT_SUCCESS|, а для индикации некорректного завершения программы -- макроопределением \verb|EXIT_FAILURE|. Предварительно необходимо включить заголовочный файл \verb|stdlib.h|.
 
+Пример программы
+\begin{lstlisting}[
+style = c_cpp,
+numbers = none
+]
+// Включение заголовочных файлов
+#include <stdio.h>
+#include <stdlib.h>
+
+// Объявление глобальных переменных
+int x = 21;
+int y = 85;
+
+// Объявление функций и пр.
+int sum(int, int);
+void print(int);
+
+// Главная функция (точка входа в программу)
+int main(void) {
+    int z;
+    z = sum(x, y);
+    print(z);
+    return EXIT_SUCCESS;
+}
+
+// Определение функций
+int sum(int x, int y) {
+    return x + y;
+}
+
+void print(int x) {
+    printf("%d", x);
+}
+\end{lstlisting}
+
+Объявление функций можно вынести в отдельный заголовочный файл и включить его с помощью директивы \verb|#include|
+\begin{lstlisting}[
+title = {\sffamily MyPrototypes.h},
+style = c_cpp,
+numbers = none
+]
+#ifndef MYPROTOTYPES_H_
+#define MYPROTOTYPES_H_
+
+// Объявление функций и пр.
+int sum(int x, int y);
+
+#endif /* MYPROTOTYPES_H_ */
+\end{lstlisting}
+
+Директивы препроцессора \verb|#ifndef|, \verb|#define| и \verb|#endif| препятствуют повторному включению заголовочного файла. Вместо этих директив можно указать в самом начале файла директиву препроцессора \verb|#pragma| со значением \verb|once|, то есть
+\begin{lstlisting}[
+title = {\sffamily MyPrototypes.h},
+style = c_cpp,
+numbers = none
+]
+#pragma once
+
+// Объявление функций и пр.
+int sum(int x, int y);
+\end{lstlisting}
 
 
 
