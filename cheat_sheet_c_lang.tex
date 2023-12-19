@@ -3147,6 +3147,61 @@ typedef struct {
 
 Для получения \emph{абстрактного класса} в Си необходимо \emph{обнулить указатели на виртуальные функции}, у которых не должно быть определения по умолчанию на абстрактном уровне. Чтобы внешний код не мого создавать объекты абстрактных типов, следует удалить функцию-аллокатор из публичного интерфейса \cite[\strbook{293}]{amini-extreme-c:2022}.
 
+Пример наследования в Си
+\begin{lstlisting}[
+style = c_cpp,
+numbers = none
+]
+#include <string.h>
+
+// родительская структура атрибутов
+typedef struct {
+    char c;
+    char d;
+} a_t;
+
+// дочерняя структура атрибутов
+typedef struct {
+    a_t parent;  // NB
+    char str[5];
+} b_t;
+
+int main(int argc, char** argv) {
+    b_t b;
+    b.parent.c = 'A';
+    b.parent.d = 'B';
+    strcpy(b.str, "1234");
+    
+    return 0;
+}
+\end{lstlisting}
+
+Демонстрация того, как следует приводить типы, чтобы указатели ссылались на правильные поля
+\begin{lstlisting}[
+style = c_cpp,
+numbers = none
+]
+typedef struct {
+    ...
+} a_t;
+typedef struct {
+    ...
+} b_t;
+
+typedef struct {
+    a_t a;
+    b_t b;
+    ...
+} c_t;
+
+c_t c_obj;
+a_t* a_ptr = (a_t*)&c_obj;
+b_t* b_ptr = (b_t*)(&c_obj + sizeof(a_t));  // NB
+c_t* c_ptr = &c_obj;
+\end{lstlisting}
+
+Мы прибавили размер объекта \verb|a_t| к адресу \verb|c_obj|; благодаря этому \emph{указатель} теперь \emph{ссылается} на поле \verb|b| внутри \verb|c_t|
+
 
 
 
