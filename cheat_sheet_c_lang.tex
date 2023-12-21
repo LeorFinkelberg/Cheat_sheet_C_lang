@@ -3293,6 +3293,38 @@ int main(int argc, char** argv) {
 
 В определении макроса есть два разных выражения, которые выбираются в зависимости от типа аргумента \verb|x|. Для значений \verb|int| используется \verb|absi|, а для значений \verb|double| -- \verb|absd|. 
 
+\subsection{Unicode}
+
+Одним из самых важных нововведений в стандарте С11 стала поддержка Unicode (в виде кодировок UTF-8, UTF-16 и UTF-32). До выхода С11 нам были доступны только восьмибитные типа \verb|char| и \verb|unsigned char|, предназначенные для хранения символов кодировок ASCII и Extended ASCII. Строки имели вид массивов этих ASCII-символов. 
+
+\subsection{Анонимные структуры и анонимные объединения}
+
+Анонимные структуры и анонимные объединения -- определения типов \emph{без имени}; обычно они используются в качестве \emph{вложенных типов}. 
+
+\begin{lstlisting}[
+style = c_cpp,
+numbers = none
+]
+typedef struct {
+    union {  // анонимное объединение
+    	struct {  // анонимная структура
+    	    int x;
+    	    int y;
+    	};
+    	int data[2];  // двухэлементный целочисленный массив
+    };
+} point_t;
+
+int main(int argc, char** argv) {
+    point_t p;
+    p.x = 10;  // то же что и p.data[0] = 10;
+    p.data[1] = -5;  // то же что и p.y = -5;
+    printf("Point (%d, %d) using anonymous structure.\n", p.x, p.y);
+    printf("Point (%d, %d) using anonymous byte array.\n", p.data[0], p.data[1]);
+}
+\end{lstlisting}
+
+\emph{Одна и та же область памяти} используется для хранения экземпляра анонимной структуры и двухэлементного целочисленного массива \cite[\strbook{379}]{amini-extreme-c:2022}.
 
 
 
